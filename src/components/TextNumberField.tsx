@@ -1,14 +1,22 @@
 import {FormControl, TextField} from "@mui/material";
+import {useDispatch} from "react-redux";
+import {changeAmount} from "../store/quizSlice";
 
 const TextNumberField = () => {
-    const handleChange = () => {}
+    const dispatch = useDispatch();
+
+    const handleChange = (e) => {
+        dispatch(changeAmount(e.target.value));
+    }
 
     return (
         <FormControl fullWidth>
             <TextField
-                label="Standard warning"
+                label="Amount of Questions"
                 variant="outlined"
                 color="warning"
+                type="number"
+                onChange={handleChange}
             />
         </FormControl>
     );

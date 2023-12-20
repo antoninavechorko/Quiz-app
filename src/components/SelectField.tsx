@@ -1,12 +1,29 @@
 import {Box, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import {useState} from "react";
+import {useDispatch} from "react-redux";
+import {changeCategory, changeDifficulty, changeType} from "../store/quizSlice";
 
-const SelectField = (props: { label: string; }) => {
-    const { label }  = props;
+const SelectField = (props) => {
+    const { label, options }  = props;
     const [value, setValue] = useState('');
+    const dispatch = useDispatch();
 
-    const handleChange = () => {
+    const handleChange = (e) => {
+        setValue(e.target.value);
 
+        switch (label){
+            case "Category":
+                dispatch(changeCategory(e.target.value));
+                break;
+            case "Difficulty":
+                dispatch(changeDifficulty(e.target.value));
+                break;
+            case "Type":
+                dispatch(changeType(e.target.value));
+                break;
+            default:
+                return;
+        }
     }
 
     return (
@@ -14,9 +31,10 @@ const SelectField = (props: { label: string; }) => {
             <FormControl fullWidth>
                 <InputLabel>{label}</InputLabel>
                 <Select value={value} label={label} onChange={handleChange}>
-                    <MenuItem>Option 1</MenuItem>
-                    <MenuItem>Option 2</MenuItem>
-                    <MenuItem>Option 3</MenuItem>
+                    <MenuItem value={id} key={id}>
+                        {name}
+                    </MenuItem>
+                    ))}
                 </Select>
             </FormControl>
         </Box>
