@@ -46,6 +46,7 @@ const Questions = () => {
         }
     }, [response, questionIndex]);
 
+
     if (loading) {
         return <CircularProgress/>
     }
@@ -53,6 +54,12 @@ const Questions = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedOption(e.target.value);
     }
+
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === "Enter" && selectedOption) {
+            handleClick();
+        }
+    };
 
     const handleClick = () => {
         if (response) {
@@ -72,7 +79,7 @@ const Questions = () => {
     }
 
     return (
-        <Box>
+        <Box onKeyPress={handleKeyPress}>
             <Typography variant="h4">Questions {questionIndex + 1}</Typography>
             <Typography mt={5}>
                 {decode(response?.results[questionIndex].question)}
