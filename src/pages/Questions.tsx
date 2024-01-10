@@ -1,4 +1,4 @@
-import {Box, Button, CircularProgress, FormControlLabel, Typography, Radio, RadioGroup} from "@mui/material";
+import {Box, Button, CircularProgress, FormControlLabel, Typography, Radio, RadioGroup, LinearProgress} from "@mui/material";
 import { decode } from "html-entities";
 import {useNavigate} from "react-router-dom";
 import useAxios from "../hooks/useAxios";
@@ -32,6 +32,7 @@ const Questions = () => {
     const [questionIndex, setQuestionIndex] = useState<number>(0);
     const [options, setOptions] = useState<string[]>([]);
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
+    const [progress, setProgress] = useState<number>(0);
 
     useEffect(() => {
         if (response?.results.length) {
@@ -72,6 +73,7 @@ const Questions = () => {
             if (questionIndex + 1 < response.results.length) {
                 setQuestionIndex(questionIndex + 1);
                 setSelectedOption(null);
+                setProgress(((questionIndex + 1) / response.results.length) * 100);
             } else {
                 navigate("/score");
             }
@@ -81,6 +83,9 @@ const Questions = () => {
     return (
         <Box onKeyPress={handleKeyPress}>
             <Typography variant="h4">Questions {questionIndex + 1}</Typography>
+            <LinearProgress variant="determinate"
+                            color="primary"
+                            value={progress} />
             <Typography mt={5}>
                 {decode(response?.results[questionIndex].question)}
             </Typography>
