@@ -3,7 +3,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Settings from "./pages/Settings";
 import Questions from "./pages/Questions";
 import FinalScreen from "./pages/FinalScreen";
-import {Box, Container, CssBaseline} from "@mui/material";
+import {Container, CssBaseline} from "@mui/material";
 
 function App() {
   return (

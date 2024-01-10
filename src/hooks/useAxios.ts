@@ -1,12 +1,17 @@
 import axios from "axios";
 import {useState, useEffect} from "react";
+import {ApiResponse, Category} from "../types/types";
+
+interface IUseAxiosProps {
+    url: string;
+}
 
 axios.defaults.baseURL = "https://opentdb.com";
 
-const useAxios = ({ url }) => {
-    const [response, setResponse] = useState(null);
-    const [error, setError] = useState("");
-    const [loading, setLoading] = useState(true);
+const useAxios = ({ url }: IUseAxiosProps) => {
+    const [response, setResponse] = useState<ApiResponse | null>(null);
+    const [error, setError] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const fetchData = () => {

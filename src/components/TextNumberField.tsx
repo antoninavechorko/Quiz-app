@@ -1,9 +1,9 @@
 import {FormControl, TextField} from "@mui/material";
-import {useDispatch} from "react-redux";
 import {changeAmount} from "../store/quizSlice";
+import {useAppDispatch} from "../hooks/useStore";
 
 const TextNumberField = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const handleChange = (e) => {
         dispatch(changeAmount(e.target.value));

@@ -1,13 +1,16 @@
 import {Box, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
-import {useState} from "react";
-import {useDispatch} from "react-redux";
+import {FC, useState} from "react";
 import {changeCategory, changeDifficulty, changeType} from "../store/quizSlice";
-import {useNavigate} from "react-router-dom";
+import {useAppDispatch} from "../hooks/useStore";
 
-const SelectField = (props) => {
-    const { label, options }  = props;
-    const [value, setValue] = useState('');
-    const dispatch = useDispatch();
+interface ISelectFieldProps {
+    options: {id: number | string; name: string} [];
+    label: string;
+}
+
+const SelectField: FC<ISelectFieldProps> = ({ label, options }) => {
+    const [value, setValue] = useState<string>('');
+    const dispatch = useAppDispatch();
 
     const handleChange = (e) => {
         setValue(e.target.value);

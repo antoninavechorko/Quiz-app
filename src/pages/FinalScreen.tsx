@@ -1,12 +1,13 @@
 import {Box, Typography, Button} from "@mui/material";
-import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {changeAmount, changeScore} from "../store/quizSlice";
+import {changeAmount, changeScore, selectQuizState} from "../store/quizSlice";
+import {useAppDispatch, useAppSelector} from "../hooks/useStore";
 
 const FinalScreen = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const { score } = useSelector((state) => state.quiz);
+    const quizState = useAppSelector(selectQuizState);
+    const {score } = quizState;
 
     const handleBackToSettings = () => {
         dispatch(changeScore(0));

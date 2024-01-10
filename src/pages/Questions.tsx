@@ -1,18 +1,19 @@
 import {Box, Button, CircularProgress, Typography} from "@mui/material";
 import { decode } from "html-entities";
-import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import useAxios from "../hooks/useAxios";
 import {useEffect, useState} from "react";
-import {changeScore} from "../store/quizSlice";
+import {changeScore, selectQuizState} from "../store/quizSlice";
+import {useAppDispatch, useAppSelector} from "../hooks/useStore";
 
 const getRandomInt = (max: number) => {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
 const Questions = () => {
-    const { question_category, question_difficulty, question_type, amount_of_question, score } = useSelector((state) => state.quiz);
-    const dispatch = useDispatch();
+    const quizState = useAppSelector(selectQuizState);
+    const { question_category, question_difficulty, question_type, amount_of_question, score } = quizState;
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     let apiUrl = `/api.php?amount=${amount_of_question}`;
@@ -28,8 +29,8 @@ const Questions = () => {
     }
 
     const { response, loading } = useAxios({ url: apiUrl});
-    const [questionIndex, setQuestionIndex] = useState(0);
-    const [options, setOptions] = useState([]);
+    const [questionIndex, setQuestionIndex] = useState<number>(0);
+    const [options, setOptions] = useState<string[]>([]);
 
     useEffect(() => {
         if (response?.results.length) {
@@ -49,16 +50,18 @@ const Questions = () => {
     }
 
     const handleClickAnswer = (e) => {
-        const question = response.results[questionIndex];
+        if (response) {
+            const question = response.results[questionIndex];
 
-        if (e.target.textContent === question.correct_answer) {
-            dispatch(changeScore(score + 1))
-        }
+            if (e.target.textContent === question.correct_answer) {
+                dispatch(changeScore(score + 1))
+            }
 
-        if (questionIndex + 1 < response.results.length) {
-            setQuestionIndex(questionIndex + 1);
-        } else {
-            navigate("/score");
+            if (questionIndex + 1 < response.results.length) {
+                setQuestionIndex(questionIndex + 1);
+            } else {
+                navigate("/score");
+            }
         }
     }
 
@@ -66,7 +69,7 @@ const Questions = () => {
         <Box>
             <Typography variant="h4">Questions {questionIndex + 1}</Typography>
             <Typography mt={5}>
-                {decode(response.results[questionIndex].question)}
+                {decode(response?.results[questionIndex].question)}
             </Typography>
             {options.map((data, id) => (
                 <Box mt={2} key={id}>
@@ -76,7 +79,7 @@ const Questions = () => {
                 </Box>
             ))}
             <Box mt={5}>
-                <p> Score: {score} / {response.results.length}</p>
+                <p> Score: {score} / {response?.results.length}</p>
             </Box>
         </Box>
     );

@@ -3,6 +3,7 @@ import SelectField from "../components/SelectField";
 import useAxios from "../hooks/useAxios";
 import {useNavigate} from "react-router-dom";
 import TextNumberField from "../components/TextNumberField";
+import {FormEvent} from "react";
 
 
 const Settings = () => {
@@ -28,7 +29,7 @@ const Settings = () => {
         { id: "boolean", name: "True/False" },
     ];
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         navigate('/questions')
     }
@@ -37,7 +38,7 @@ const Settings = () => {
         <div>
             <Typography variant="h2" fontWeight="bold">Quiz App</Typography>
             <form onSubmit={handleSubmit}>
-                <SelectField options={response.trivia_categories} label="Category"/>
+                <SelectField options={response?.trivia_categories || []} label="Category"/>
                 <SelectField options={difficultyOptions} label="Difficulty"/>
                 <SelectField options={typeOptions} label="Type"/>
                 <TextNumberField />
