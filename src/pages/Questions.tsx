@@ -1,4 +1,4 @@
-import {Box, Button, CircularProgress, Typography} from "@mui/material";
+import {Box, Button, CircularProgress, FormControlLabel, Typography, Radio, RadioGroup} from "@mui/material";
 import { decode } from "html-entities";
 import {useNavigate} from "react-router-dom";
 import useAxios from "../hooks/useAxios";
@@ -31,6 +31,7 @@ const Questions = () => {
     const { response, loading } = useAxios({ url: apiUrl});
     const [questionIndex, setQuestionIndex] = useState<number>(0);
     const [options, setOptions] = useState<string[]>([]);
+    const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
     useEffect(() => {
         if (response?.results.length) {
@@ -49,17 +50,21 @@ const Questions = () => {
         return <CircularProgress/>
     }
 
-    const handleClickAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSelectedOption(e.target.value);
+    }
+
+    const handleClick = () => {
         if (response) {
             const question = response.results[questionIndex];
-            const clickedButton = e.target as HTMLButtonElement;
 
-            if (clickedButton.textContent === question.correct_answer) {
+            if (selectedOption === question.correct_answer) {
                 dispatch(changeScore(score + 1))
             }
 
             if (questionIndex + 1 < response.results.length) {
                 setQuestionIndex(questionIndex + 1);
+                setSelectedOption(null);
             } else {
                 navigate("/score");
             }
@@ -72,13 +77,22 @@ const Questions = () => {
             <Typography mt={5}>
                 {decode(response?.results[questionIndex].question)}
             </Typography>
-            {options.map((data, id) => (
-                <Box mt={2} key={id}>
-                    <Button onClick={handleClickAnswer} variant="contained">
-                        {decode(data)}
-                    </Button>
-                </Box>
-            ))}
+            <RadioGroup value={selectedOption} onChange={handleChange}>
+                {options.map((data, id) => (
+                    <Box mt={2} key={id}>
+                        <FormControlLabel
+                            control={<Radio />}
+                            label={decode(data)}
+                            value={decode(data)}
+                        />
+                    </Box>
+                ))}
+            </RadioGroup>
+            <Box mt={5}>
+                <Button onClick={handleClick} variant="contained" disabled={!selectedOption}>
+                    Next
+                </Button>
+            </Box>
             <Box mt={5}>
                 <p> Score: {score} / {response?.results.length}</p>
             </Box>

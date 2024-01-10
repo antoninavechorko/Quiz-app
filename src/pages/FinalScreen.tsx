@@ -11,7 +11,7 @@ const FinalScreen = () => {
 
     const handleBackToSettings = () => {
         dispatch(changeScore(0));
-        dispatch(changeAmount(20));
+        dispatch(changeAmount(10));
         navigate("/");
     };
 
