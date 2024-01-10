@@ -2,6 +2,7 @@ import {Box, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import {useState} from "react";
 import {useDispatch} from "react-redux";
 import {changeCategory, changeDifficulty, changeType} from "../store/quizSlice";
+import {useNavigate} from "react-router-dom";
 
 const SelectField = (props) => {
     const { label, options }  = props;
@@ -31,9 +32,10 @@ const SelectField = (props) => {
             <FormControl fullWidth>
                 <InputLabel>{label}</InputLabel>
                 <Select value={value} label={label} onChange={handleChange}>
-                    <MenuItem value={id} key={id}>
-                        {name}
-                    </MenuItem>
+                    {options.map(({ id, name }) => (
+                        <MenuItem value={id} key={id}>
+                            {name}
+                        </MenuItem>
                     ))}
                 </Select>
             </FormControl>
