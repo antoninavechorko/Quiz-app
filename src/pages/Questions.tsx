@@ -2,7 +2,7 @@ import {Box, Button, CircularProgress, Typography} from "@mui/material";
 import { decode } from "html-entities";
 import {useNavigate} from "react-router-dom";
 import useAxios from "../hooks/useAxios";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {changeScore, selectQuizState} from "../store/quizSlice";
 import {useAppDispatch, useAppSelector} from "../hooks/useStore";
 
@@ -49,11 +49,12 @@ const Questions = () => {
         return <CircularProgress/>
     }
 
-    const handleClickAnswer = (e) => {
+    const handleClickAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
         if (response) {
             const question = response.results[questionIndex];
+            const clickedButton = e.target as HTMLButtonElement;
 
-            if (e.target.textContent === question.correct_answer) {
+            if (clickedButton.textContent === question.correct_answer) {
                 dispatch(changeScore(score + 1))
             }
 

@@ -1,5 +1,5 @@
-import {Box, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
-import {FC, useState} from "react";
+import {Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
+import React, {FC, useState} from "react";
 import {changeCategory, changeDifficulty, changeType} from "../store/quizSlice";
 import {useAppDispatch} from "../hooks/useStore";
 
@@ -12,7 +12,7 @@ const SelectField: FC<ISelectFieldProps> = ({ label, options }) => {
     const [value, setValue] = useState<string>('');
     const dispatch = useAppDispatch();
 
-    const handleChange = (e) => {
+    const handleChange = (e: SelectChangeEvent<string>) => {
         setValue(e.target.value);
 
         switch (label){
