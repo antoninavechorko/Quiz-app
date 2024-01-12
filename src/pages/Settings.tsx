@@ -1,10 +1,10 @@
-import {Box, Button, CircularProgress, Typography} from "@mui/material";
+import {Box, Button, CircularProgress, Stack, Typography} from "@mui/material";
 import SelectField from "../components/SelectField";
 import useAxios from "../hooks/useAxios";
 import {useNavigate} from "react-router-dom";
 import TextNumberField from "../components/TextNumberField";
 import {FormEvent} from "react";
-
+import {styles} from '../styles/styles';
 
 const Settings = () => {
     const { response, loading, error } = useAxios({ url: "/api_category.php" })
@@ -35,18 +35,18 @@ const Settings = () => {
     }
 
     return (
-        <div>
-            <Typography variant="h2" fontWeight="bold">Quiz App</Typography>
+        <Stack sx={styles.settingPage}>
+            <Typography variant="h1" fontWeight="bold">Quiz App</Typography>
             <form onSubmit={handleSubmit}>
                 <SelectField options={response?.trivia_categories || []} label="Category"/>
                 <SelectField options={difficultyOptions} label="Difficulty"/>
                 <SelectField options={typeOptions} label="Type"/>
                 <TextNumberField />
                 <Box mt={3}>
-                    <Button fullWidth variant="contained" type="submit">Get started</Button>
+                    <Button variant="contained" type="submit">Get started</Button>
                 </Box>
             </form>
-        </div>
+        </Stack>
     );
 };
 

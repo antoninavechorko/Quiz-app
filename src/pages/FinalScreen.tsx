@@ -23,7 +23,7 @@ const FinalScreen = () => {
                 <Typography variant="h3" fontWeight="bold" mb={3}>
                     Final Score {score}
                 </Typography>
-                <Button onClick={handleBackToSettings} variant="outlined">
+                <Button onClick={handleBackToSettings} variant="contained">
                     back to settings!
                 </Button>
             </Box>

@@ -31,8 +31,8 @@ const SelectField: FC<ISelectFieldProps> = ({ label, options }) => {
     }
 
     return (
-        <Box width="100%" mt={3}>
-            <FormControl fullWidth>
+        <Box mt={3} mb={3}>
+            <FormControl>
                 <InputLabel>{label}</InputLabel>
                 <Select value={value} label={label} onChange={handleChange}>
                     {options.map(({ id, name }) => (
