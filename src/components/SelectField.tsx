@@ -32,15 +32,16 @@ const SelectField: FC<ISelectFieldProps> = ({ label, options }) => {
 
     return (
         <Box mt={3} mb={3}>
-            <FormControl>
+            <FormControl fullWidth>
                 <InputLabel>{label}</InputLabel>
-                <Select value={value} label={label} onChange={handleChange}>
+                <Select value={value} label={label} onChange={handleChange} required>
                     {options.map(({ id, name }) => (
                         <MenuItem value={id} key={id}>
                             {name}
                         </MenuItem>
                     ))}
                 </Select>
+
             </FormControl>
         </Box>
     );

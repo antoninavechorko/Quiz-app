@@ -1,6 +1,6 @@
 import axios from "axios";
 import {useState, useEffect} from "react";
-import {ApiResponse, Category} from "../types/types";
+import {ApiResponse} from "../types/types";
 
 interface IUseAxiosProps {
     url: string;

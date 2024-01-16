@@ -11,12 +11,13 @@ const TextNumberField = () => {
     }
 
     return (
-        <FormControl>
+        <FormControl fullWidth>
             <TextField
                 label="Amount of Questions"
                 variant="outlined"
                 type="number"
                 onChange={handleChange}
+                required
             />
         </FormControl>
     );

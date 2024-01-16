@@ -7,8 +7,7 @@ import Fireworks from "react-canvas-confetti/dist/presets/fireworks";
 const FinalScreen = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const quizState = useAppSelector(selectQuizState);
-    const {score } = quizState;
+    const { score } = useAppSelector(selectQuizState);
 
     const handleBackToSettings = () => {
         dispatch(changeScore(0));
