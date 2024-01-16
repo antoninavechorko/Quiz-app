@@ -19,11 +19,9 @@ let theme = createTheme({
 
         h1: {
             fontSize: 48,
-            color: 'text.primary',
         },
         h2: {
             fontSize: 26,
-            color: 'text.secondary',
         },
         h3: {
             fontSize: 22,
@@ -54,8 +52,15 @@ let theme = createTheme({
             styleOverrides: {
                 root: ({theme}) => ({
                     fontSize: 16,
-                    color: 'text.secondary',
+                    color: theme.palette.primary.main,
                     marginBottom: '5px',
+                }),
+            },
+        },
+        MuiMenuItem: {
+            styleOverrides: {
+                root: ({theme}) => ({
+                    color: theme.palette.text.secondary,
                 }),
             },
         },

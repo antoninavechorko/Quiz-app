@@ -5,6 +5,7 @@ import useAxios from "../hooks/useAxios";
 import React, {useEffect, useState} from "react";
 import {changeScore, selectQuizState} from "../store/quizSlice";
 import {useAppDispatch, useAppSelector} from "../hooks/useStore";
+import PageWrapper from "../components/PageWrapper";
 
 const getRandomInt = (max: number) => {
     return Math.floor(Math.random() * Math.floor(max));
@@ -28,14 +29,14 @@ const Questions = () => {
         apiUrl = apiUrl.concat(`&type=${question_type}`);
     }
 
-    const { response, loading } = useAxios({ url: apiUrl});
+    const { response, loading, error } = useAxios({ url: apiUrl});
     const [questionIndex, setQuestionIndex] = useState<number>(0);
     const [options, setOptions] = useState<string[]>([]);
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
     const [progress, setProgress] = useState<number>(0);
 
     useEffect(() => {
-        if (response?.results.length) {
+        if (response?.results && response.results.length > 0) {
             const question = response.results[questionIndex];
             let answers = [...question.incorrect_answers];
             answers.splice(
@@ -47,9 +48,12 @@ const Questions = () => {
         }
     }, [response, questionIndex]);
 
-
     if (loading) {
-        return <CircularProgress/>
+        return <PageWrapper><CircularProgress size="4rem"/></PageWrapper>
+    }
+
+    if (error) {
+        return <PageWrapper><Typography variant="h2" color="error" align="center" fontWeight="bold">Something went wrong...</Typography></PageWrapper>
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,6 +85,7 @@ const Questions = () => {
     }
 
     return (
+        <PageWrapper>
         <Box onKeyPress={handleKeyPress}>
             <Typography variant="h4">Questions {questionIndex + 1}</Typography>
             <LinearProgress variant="determinate"
@@ -109,6 +114,7 @@ const Questions = () => {
                 <p> Score: {score} / {response?.results.length}</p>
             </Box>
         </Box>
+        </PageWrapper>
     );
 };
 

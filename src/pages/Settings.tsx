@@ -1,13 +1,13 @@
-import {Box, Button, CircularProgress, Stack, Typography} from "@mui/material";
+import {Box, Button, CircularProgress, Container, CssBaseline, Stack, Typography} from "@mui/material";
 import SelectField from "../components/SelectField";
 import useAxios from "../hooks/useAxios";
 import {useNavigate} from "react-router-dom";
 import TextNumberField from "../components/TextNumberField";
-import {FormEvent, useState} from "react";
-import {styles} from '../styles/styles';
+import React, {FormEvent, useState} from "react";
 import {difficultyOptions, typeOptions} from "../constants/constant";
 import {useAppSelector} from "../hooks/useStore";
 import {selectQuizState} from "../store/quizSlice";
+import PageWrapper from "../components/PageWrapper";
 
 
 const Settings = () => {
@@ -17,11 +17,11 @@ const Settings = () => {
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     if (loading) {
-        return <CircularProgress/>
+        return <PageWrapper><CircularProgress size="4rem"/></PageWrapper>
     }
 
     if (error) {
-        return <Typography>Something went wrong</Typography>
+        return <PageWrapper><Typography variant="h2" color="error" align="center" fontWeight="bold">Something went wrong...</Typography></PageWrapper>
     }
 
     const handleSubmit = (e: FormEvent) => {
@@ -36,19 +36,21 @@ const Settings = () => {
     }
 
     return (
-        <Stack sx={styles.settingPage}>
-            <Typography variant="h1" fontWeight="bold">Quiz App</Typography>
-            <form onSubmit={handleSubmit}>
-                <SelectField options={response?.trivia_categories || []} label="Category"/>
-                <SelectField options={difficultyOptions} label="Difficulty"/>
-                <SelectField options={typeOptions} label="Type"/>
-                <TextNumberField/>
-                {errorMessage && <Typography color="error">{errorMessage}</Typography>}
-                <Box mt={3}>
-                    <Button variant="contained" type="submit">Get started</Button>
-                </Box>
-            </form>
-        </Stack>
+        <PageWrapper>
+            <Container maxWidth="md">
+                    <Typography variant="h1" fontWeight="bold">Quiz App</Typography>
+                    <form onSubmit={handleSubmit}>
+                        <SelectField options={response?.trivia_categories || []} label="Category"/>
+                        <SelectField options={difficultyOptions} label="Difficulty"/>
+                        <SelectField options={typeOptions} label="Type"/>
+                        <TextNumberField/>
+                        {errorMessage && <Typography color="error">{errorMessage}</Typography>}
+                        <Box mt={3}>
+                            <Button variant="contained" type="submit">Get Started</Button>
+                        </Box>
+                    </form>
+            </Container>
+        </PageWrapper>
     );
 };
 
