@@ -52,7 +52,7 @@ const Questions = () => {
         return <PageWrapper><CircularProgress size="4rem"/></PageWrapper>
     }
 
-    if (error) {
+    if (!response) {
         return <PageWrapper><Typography variant="h2" color="error" align="center" fontWeight="bold">Something went wrong...</Typography></PageWrapper>
     }
 

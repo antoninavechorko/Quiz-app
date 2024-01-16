@@ -1,20 +1,20 @@
-import {Box, Button, CircularProgress, Container, CssBaseline, Stack, Typography} from "@mui/material";
+import {Box, Button, CircularProgress, Container, Typography} from "@mui/material";
 import SelectField from "../components/SelectField";
 import useAxios from "../hooks/useAxios";
 import {useNavigate} from "react-router-dom";
 import TextNumberField from "../components/TextNumberField";
-import React, {FormEvent, useState} from "react";
+import React, {FormEvent} from "react";
 import {difficultyOptions, typeOptions} from "../constants/constant";
 import {useAppSelector} from "../hooks/useStore";
 import {selectQuizState} from "../store/quizSlice";
 import PageWrapper from "../components/PageWrapper";
-
+import {ToastContainer, toast, Bounce} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Settings = () => {
     const { response, loading, error } = useAxios({ url: "/api_category.php" });
     const { amount_of_question} = useAppSelector(selectQuizState);
     const navigate = useNavigate();
-    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     if (loading) {
         return <PageWrapper><CircularProgress size="4rem"/></PageWrapper>
@@ -28,9 +28,19 @@ const Settings = () => {
         e.preventDefault();
 
         if (amount_of_question > 50) {
-            setErrorMessage("Enter less than or equal to 50 questions");
+            toast.error("Maximum amount is 50", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+                style: {textAlign: "center"},
+            });
         } else {
-            setErrorMessage(null);
             navigate('/questions');
         }
     }
@@ -44,9 +54,9 @@ const Settings = () => {
                         <SelectField options={difficultyOptions} label="Difficulty"/>
                         <SelectField options={typeOptions} label="Type"/>
                         <TextNumberField/>
-                        {errorMessage && <Typography color="error">{errorMessage}</Typography>}
+                        <ToastContainer />
                         <Box mt={3}>
-                            <Button variant="contained" type="submit">Get Started</Button>
+                            <Button variant="contained" type="submit" fullWidth><Typography variant="h3" fontWeight="bold">Get Started</Typography></Button>
                         </Box>
                     </form>
             </Container>

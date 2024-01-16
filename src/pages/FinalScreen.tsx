@@ -19,7 +19,7 @@ const FinalScreen = () => {
     return (
         <PageWrapper>
             <Fireworks autorun={{ speed: 3 }}/>
-            <Box mt={30}>
+            <Box>
                 <Typography variant="h3" fontWeight="bold" mb={3}>
                     Final Score {score}
                 </Typography>
