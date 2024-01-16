@@ -3,7 +3,7 @@ import {createTheme, responsiveFontSizes} from '@mui/material';
 let theme = createTheme({
     palette: {
         primary: {main: '#733fbd'},
-        error: {main: '#b4231c'},
+        secondary: {main: '#beb0d9'},
         text: {
             primary: '#733fbd',
             secondary: '#666',
@@ -21,19 +21,26 @@ let theme = createTheme({
             fontSize: 48,
         },
         h2: {
-            fontSize: 26,
+            fontSize: 28,
         },
         h3: {
-            fontSize: 24,
+            fontSize: 26,
         },
         h4: {
             fontSize: 20,
         },
         h5: {
-            fontSize: 18,
+            fontSize: 20,
         },
     },
     components: {
+        MuiTypography: {
+            styleOverrides: {
+                root: ({theme}) => ({
+                    color: theme.palette.text.secondary,
+                })
+            }
+        },
         MuiInputBase: {
             styleOverrides: {
                 root: ({theme}) => ({
@@ -78,9 +85,15 @@ let theme = createTheme({
                 },
                 contained: ({theme}) => ({
                     color: theme.palette.common.white,
-                    border: `1px solid ${theme.palette.primary.main}`,
+                    fontSize: '22px',
+                    fontWeight: 'bold',
+                    '&:disabled': {
+                        backgroundColor: theme.palette.secondary.main,
+                        color: theme.palette.text.secondary,
+                        border: 'none',
+                    }
                 }),
-            },
+            }
         },
     },
 });

@@ -48,7 +48,7 @@ const Settings = () => {
     return (
         <PageWrapper>
             <Container maxWidth="md">
-                    <Typography variant="h1" fontWeight="bold">Quiz App</Typography>
+                    <Typography variant="h1" fontWeight="bold" color="primary">Quiz App</Typography>
                     <form onSubmit={handleSubmit}>
                         <SelectField options={response?.trivia_categories || []} label="Category"/>
                         <SelectField options={difficultyOptions} label="Difficulty"/>
@@ -56,7 +56,7 @@ const Settings = () => {
                         <TextNumberField/>
                         <ToastContainer />
                         <Box mt={3}>
-                            <Button variant="contained" type="submit" fullWidth><Typography variant="h3" fontWeight="bold">Get Started</Typography></Button>
+                            <Button variant="contained" type="submit" fullWidth>Get Started</Button>
                         </Box>
                     </form>
             </Container>

@@ -6,6 +6,7 @@ import React, {useEffect, useState} from "react";
 import {changeScore, selectQuizState} from "../store/quizSlice";
 import {useAppDispatch, useAppSelector} from "../hooks/useStore";
 import PageWrapper from "../components/PageWrapper";
+import withWidth from "@mui/material/Hidden/withWidth";
 
 const getRandomInt = (max: number) => {
     return Math.floor(Math.random() * Math.floor(max));
@@ -85,13 +86,17 @@ const Questions = () => {
     }
 
     return (
-        <PageWrapper>
+        <Box  display="flex"
+              flexDirection="column"
+              height="100vh"
+              padding="60px 120px 0"
+        >
         <Box onKeyPress={handleKeyPress}>
-            <Typography variant="h4">Questions {questionIndex + 1}</Typography>
+            <Typography variant="h3" fontWeight="bold" color="primary" mb={5}>Questions {questionIndex + 1}</Typography>
             <LinearProgress variant="determinate"
                             color="primary"
                             value={progress} />
-            <Typography mt={5}>
+            <Typography variant="h4" fontWeight="bold" mt={5}>
                 {decode(response?.results[questionIndex].question)}
             </Typography>
             <RadioGroup value={selectedOption} onChange={handleChange}>
@@ -106,15 +111,15 @@ const Questions = () => {
                 ))}
             </RadioGroup>
             <Box mt={5}>
-                <Button onClick={handleClick} variant="contained" disabled={!selectedOption}>
+                <Button onClick={handleClick} variant="contained" disabled={!selectedOption} sx={{width: "200px"}}>
                     Next
                 </Button>
             </Box>
             <Box mt={5}>
-                <p> Score: {score} / {response?.results.length}</p>
+                <Typography variant="h4" fontWeight="bold"> Score: {score} / {response?.results.length}</Typography>
             </Box>
         </Box>
-        </PageWrapper>
+        </Box>
     );
 };
 
