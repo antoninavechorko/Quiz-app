@@ -21,7 +21,7 @@ let theme = createTheme({
             fontSize: 48,
         },
         h2: {
-            fontSize: 28,
+            fontSize: 36,
         },
         h3: {
             fontSize: 26,

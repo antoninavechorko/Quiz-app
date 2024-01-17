@@ -22,7 +22,7 @@ export const quizSlice = createSlice({
     initialState,
     reducers: {
         changeCategory: (state, action: PayloadAction<string>) => {
-           state.question_category = action.payload
+            state.question_category = action.payload
         },
         changeDifficulty: (state, action: PayloadAction<string>) => {
             state.question_difficulty = action.payload
@@ -39,7 +39,7 @@ export const quizSlice = createSlice({
     },
 });
 
-export const { changeCategory, changeDifficulty, changeType, changeAmount, changeScore } = quizSlice.actions;
+export const {changeCategory, changeDifficulty, changeType, changeAmount, changeScore} = quizSlice.actions;
 export const selectQuizState = (state: RootState) => state.quiz;
 
 export default quizSlice.reducer;

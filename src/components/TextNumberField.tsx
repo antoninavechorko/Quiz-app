@@ -1,9 +1,9 @@
+import React, {FC} from "react";
 import {FormControl, TextField} from "@mui/material";
 import {changeAmount} from "../store/quizSlice";
 import {useAppDispatch} from "../hooks/useStore";
-import React from "react";
 
-const TextNumberField = () => {
+const TextNumberField: FC = () => {
     const dispatch = useAppDispatch();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

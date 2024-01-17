@@ -1,14 +1,15 @@
-import {Box, Typography, Button} from "@mui/material";
+import {FC} from "react";
 import {useNavigate} from "react-router-dom";
+import {Box, Typography, Button} from "@mui/material";
+import PageWrapper from "../components/PageWrapper";
 import {changeAmount, changeScore, selectQuizState} from "../store/quizSlice";
 import {useAppDispatch, useAppSelector} from "../hooks/useStore";
 import Fireworks from "react-canvas-confetti/dist/presets/fireworks";
-import PageWrapper from "../components/PageWrapper";
 
-const FinalScreen = () => {
+const FinalScreen: FC = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const { score } = useAppSelector(selectQuizState);
+    const {score} = useAppSelector(selectQuizState);
 
     const handleBackToSettings = () => {
         dispatch(changeScore(0));
@@ -18,14 +19,14 @@ const FinalScreen = () => {
 
     return (
         <PageWrapper>
-            <Fireworks autorun={{ speed: 3 }}/>
-            <Box  display="flex"
-                  flexDirection="column"
-                  alignItems="center">
-                <Typography variant="h3" fontWeight="bold" mb={4}>
+            <Fireworks autorun={{speed: 3}}/>
+            <Box display="flex"
+                 flexDirection="column"
+                 alignItems="center">
+                <Typography variant="h2" fontWeight="bold" mb={4} color="primary">
                     Final Score: {score}
                 </Typography>
-                <Button onClick={handleBackToSettings} variant="contained" sx={{width: "260px"}}>
+                <Button onClick={handleBackToSettings} variant="contained" sx={{width: "280px"}}>
                     Back to Settings!
                 </Button>
             </Box>
