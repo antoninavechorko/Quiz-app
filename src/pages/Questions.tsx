@@ -98,7 +98,10 @@ const Questions: FC = () => {
         <Box display="flex"
              flexDirection="column"
              height="100vh"
-             padding="60px 120px 0"
+             padding={{
+                 xs: "30px 30px 0",
+                 md: "60px 120px 0",
+             }}
         >
             <Box onKeyPress={handleKeyPress}>
                 <Typography variant="h3" fontWeight="bold" color="primary"
