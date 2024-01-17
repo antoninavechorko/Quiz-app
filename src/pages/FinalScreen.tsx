@@ -19,12 +19,14 @@ const FinalScreen = () => {
     return (
         <PageWrapper>
             <Fireworks autorun={{ speed: 3 }}/>
-            <Box>
-                <Typography variant="h3" fontWeight="bold" mb={3}>
-                    Final Score {score}
+            <Box  display="flex"
+                  flexDirection="column"
+                  alignItems="center">
+                <Typography variant="h3" fontWeight="bold" mb={4}>
+                    Final Score: {score}
                 </Typography>
-                <Button onClick={handleBackToSettings} variant="contained">
-                    back to settings!
+                <Button onClick={handleBackToSettings} variant="contained" sx={{width: "260px"}}>
+                    Back to Settings!
                 </Button>
             </Box>
         </PageWrapper>

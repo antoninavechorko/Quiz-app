@@ -6,7 +6,6 @@ import React, {useEffect, useState} from "react";
 import {changeScore, selectQuizState} from "../store/quizSlice";
 import {useAppDispatch, useAppSelector} from "../hooks/useStore";
 import PageWrapper from "../components/PageWrapper";
-import withWidth from "@mui/material/Hidden/withWidth";
 
 const getRandomInt = (max: number) => {
     return Math.floor(Math.random() * Math.floor(max));
@@ -30,7 +29,7 @@ const Questions = () => {
         apiUrl = apiUrl.concat(`&type=${question_type}`);
     }
 
-    const { response, loading, error } = useAxios({ url: apiUrl});
+    const { response, loading } = useAxios({ url: apiUrl});
     const [questionIndex, setQuestionIndex] = useState<number>(0);
     const [options, setOptions] = useState<string[]>([]);
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -116,7 +115,7 @@ const Questions = () => {
                 </Button>
             </Box>
             <Box mt={5}>
-                <Typography variant="h4" fontWeight="bold"> Score: {score} / {response?.results.length}</Typography>
+                <Typography variant="h4" fontWeight="bold" color="primary"> Score: {score} / {response?.results.length}</Typography>
             </Box>
         </Box>
         </Box>
